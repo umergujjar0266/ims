@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan</title>
+</head>
+<body>
+    <style>
+        b a{
+          color: #227791;
+        }
+          #logout{
+              text-decoration: none;
+              color: white;
+              background-color: transparent;
+              border: solid white 1px;
+              padding: 10px 15px;
+              border-radius: 15px;
+              font-size: 20px;
+              justify-self: right;
+              align-items: right;
+          }
+          #logout:hover{
+            background-color: white;
+            color: #227791;
+            transition-duration: 8ms;
+            box-shadow: white 0px 0px 15px;
+          }
+        .nav a{
+            font-size: 18px;
+            text-decoration: none;
+            float: inline-start;
+            margin: 20px;
+            padding: 10px 15px;
+            color:white;
+        }#plan_value:focus{
+            outline: none;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        #plan_value{
+            background-color: transparent;
+            font-size: 30px;
+            color: #227791;
+            border: none;
+            min-width: 30px;
+            max-width: 80px;
+            padding: 0px;
+            padding-right: 0px;
+            margin: 0px;
+            text-align: right;
+        }
+        .flexbox{
+            display: flex;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+            flex-grow: 1;
+            flex-direction: initial;
+            gap: 20px;
+            justify-content: center;
+        }
+    .flexbox >div{
+        border-radius: 10px;
+        border: solid gray 0.5px;
+        color: black;
+        padding-top: 50px;
+        justify-content: end;
+        text-align: center;
+        height: 210px;
+        width: 200px;
+    }#plan1,#plan2,#plan3,#plan4,#plan5,#plan6{
+        background: linear-gradient(45deg, gray,white);
+    }
+    .nav{
+        background-color: #227791;
+        height: max-content;
+        width: 100%;
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        flex-shrink: 1;
+        justify-content: center;
+    }
+    body {
+        margin: 0;
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #f0f0f0; /* Added a light background color */
+    }
+    </style>
+    <div class="nav">
+            <a href="{% url 'index' %}">Home</a>
+            <b><a href="{% url 'plan' %}">Plan</a></b>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'alert_list' %}">Alerts</a>
+            <a href="{% url 'user_contact' %}">Contact</a>
+            <a id="logout" href="{% url 'user_logout' %}">Logout</a>
+    </div>
+
+     <h2 style="margin:20px;">Welcome, {% if user.is_authenticated %} <strong style="color: #227791; font-size: 40px;">{{ user.first_name }} {{user.last_name}}</strong>{% endif %}</h2>
+     <p style="margin:20px;"><label for="plan_value">Your Selected Plan is: </label><input type="number" readonly value="{{user.plan}}" id="plan_value">$</p>
+     
+         <div class="flexbox">
+            <div id="plan1"><h1>10$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+            <div id="plan2"><h1>100$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+            <div id="plan3"><h1>200$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+            <div id="plan4"><h1>500$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+            <div id="plan5"><h1>800$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+            <div id="plan6"><h1>1000$</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. incidunt repellat velit. Quos facilis accusantium nesciunt iste qui.</p></div>
+         </div>
+         <p style="margin:20px;">Want to change your Plan? <b><a href="{% url 'user_contact' %}">Contact now</a></b> </p>
+         <script>
+            var planValue = parseInt(document.getElementById("plan_value").value);
+
+if (planValue == 10) {
+    document.getElementById("plan1").style.background = "linear-gradient(45deg,#190A05,#4218B8)";
+    document.getElementById("plan1").style.color = "white";
+    document.getElementById("plan1").style.border = "none";
+    document.getElementById("plan1").style.boxShadow = "0px 15px 25px #190A05";
+} else if (planValue == 100) {
+    document.getElementById("plan2").style.background = "linear-gradient(45deg,#b92b27,#1565C0)";
+    document.getElementById("plan2").style.color = "white";
+    document.getElementById("plan2").style.border = "none";
+    document.getElementById("plan2").style.boxShadow = "0px 15px 25px #b92b27";
+} else if (planValue == 200) {
+    document.getElementById("plan3").style.background = "linear-gradient(45deg,#16A085,#F4D03F)";
+    document.getElementById("plan3").style.color = "white";
+    document.getElementById("plan3").style.border = "none";
+    document.getElementById("plan3").style.boxShadow = "0px 15px 25px #16A085";
+} else if (planValue == 500) {
+    document.getElementById("plan4").style.background = "linear-gradient(45deg,#190A05,#870000";
+    document.getElementById("plan4").style.color = "white";
+    document.getElementById("plan4").style.border = "none";
+    document.getElementById("plan4").style.boxShadow = "0px 15px 25px #190A05";
+} else if (planValue == 800) {
+    document.getElementById("plan5").style.background = "linear-gradient(45deg,#001510,#00bf8f)";
+    document.getElementById("plan5").style.color = "white";
+    document.getElementById("plan5").style.border = "none";
+    document.getElementById("plan5").style.boxShadow = "0px 15px 25px #001510";
+} else if (planValue == 1000) {
+    document.getElementById("plan6").style.background = "linear-gradient(45deg,purple,rgb(153, 209, 255))";
+    document.getElementById("plan6").style.color = "white";
+    document.getElementById("plan6").style.border = "none";
+    document.getElementById("plan6").style.boxShadow = "0px 15px 25px purple";
+}
+
+         </script>
+</body>
+</html>

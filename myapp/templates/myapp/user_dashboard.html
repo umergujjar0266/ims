@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Wallet Dashboard</h1>
+    <p>Wallet ID: {{ wallet.id }}</p>
+    <p>Balance: ${{ wallet.balance }}</p>
+
+    <h2>Recent Transactions</h2>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.timestamp }} - {{ transaction.transaction_type }}: ${{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

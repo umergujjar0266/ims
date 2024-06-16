@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        b {
+            color: #227791;
+        }
+        #logout {
+            text-decoration: none;
+            color: white;
+            background-color: transparent;
+            border: solid white 1px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 20px;
+            justify-self: right;
+            align-items: right;
+        }
+        #logout:hover {
+            background-color: white;
+            color: #227791;
+            transition-duration: 8ms;
+            box-shadow: white 0px 0px 15px;
+        }
+        .nav a {
+            text-decoration: none;
+            float: inline-start;
+            margin: 20px;
+            font-size: 18px;
+            padding: 10px 15px;
+            color: white;
+        }
+        #balance_value:focus {
+            outline: none;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        #balance_value {
+            background-color: transparent;
+            font-size: 30px;
+            color: #227791;
+            border: none;
+            min-width: 30px;
+            max-width: 80px;
+            padding: 0px;
+            padding-right: 0px;
+            margin: 0px;
+            text-align: right;
+        }
+        .nav {
+            background-color: #227791;
+            height: max-content;
+            width: 100%;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            flex-grow: 1;
+            flex-shrink: 1;
+            justify-content: center;
+        }
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f0f0; /* Added a light background color */
+        }
+        table {
+            box-shadow: gray 2px 2px 15px;
+            padding: 10px;
+            font-size:18px;
+            text-align: center;
+            width: 100%;
+            background-color: white;
+            border-spacing: 0px;
+        }
+        tr:nth-child(odd) {
+            background-color: rgb(221, 218, 218);
+        }
+        th, td {
+            padding: 15px;
+        }
+        tr:hover {
+            box-shadow: gray 0px 0px 5px;
+        }
+        .copy-button {
+            padding: 5px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #227791;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .copy-button:hover {
+            color: #0f4c5d;
+        }
+        .transaction-deposit {
+            color: green;
+        }
+        .transaction-withdraw {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'plan' %}">Plan</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'alert_list' %}">Alerts</a>
+        <a href="{% url 'user_contact' %}">Contact</a>
+        <a id="logout" href="{% url 'user_logout' %}">Logout</a>
+    </div>
+
+    <h2 style="margin:20px;">Welcome, {% if user.is_authenticated %} <strong style="color: #227791; font-size: 40px;">{{ user.first_name }} {{user.last_name}}</strong>{% endif %}</h2>
+    <p style="margin:20px;"><label for="plan_value">Your current Balance is: </label><span id="balance_value">{{user.wallet_balance}} $</span></p>
+
+    <p style="margin:20px;">Wallet ID: <b id="textToCopy">{{ wallet.w_id }}</b> <button class="copy-button" onclick="copyText()"><i class="fa-regular fa-copy"></i></button></p>
+
+    <center>
+        <h2>Recent Transactions</h2></center>
+    <table>
+        <tr style="box-shadow: none; background-color: #0f4c5d; color: white;">
+            <th>Amount</th>
+            <th>Transaction Type</th>
+            <th>Date & Time</th>
+        </tr>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.amount }} $</td>
+            <td class="transaction-type">{{ transaction.transaction_type }}</td>
+            <td>{{ transaction.timestamp }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3"><h3>No transactions available.</h3></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        function copyText() {
+            // Get the text to copy
+            var textToCopy = document.getElementById("textToCopy").innerText;
+
+            // Create a temporary input element
+            var tempInput = document.createElement("input");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+
+            // Select the text in the input element
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text to the clipboard
+            document.execCommand("copy");
+
+            // Remove the temporary input element
+            document.body.removeChild(tempInput);
+
+            // Alert the user that the text has been copied
+            alert("Copied the Wallet ID: " + textToCopy);
+        }
+
+        function updateTransactionTypes() {
+            var transactionTypes = document.querySelectorAll('.transaction-type');
+            transactionTypes.forEach(function(type) {
+                if (type.innerText.toLowerCase() === 'deposit') {
+                    type.classList.add('transaction-deposit');
+                    type.innerHTML += ' <i class="fa-solid fa-arrow-trend-up"></i>'; // Add incoming icon
+                } else if (type.innerText.toLowerCase() === 'withdraw') {
+                    type.classList.add('transaction-withdraw');
+                    type.innerHTML += ' <i class="fa-solid fa-arrow-trend-down"></i>'; // Add outgoing icon
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTransactionTypes();
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/f2a11d7af5.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

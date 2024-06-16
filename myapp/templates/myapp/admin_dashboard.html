@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <h2>All Wallets</h2>
+    <ul>
+        {% for wallet in wallets %}
+            <li>{{ wallet.user.username }} - Wallet ID: {{ wallet.id }} - Balance: ${{ wallet.balance }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Recent Transactions</h2>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.timestamp }} - {{ transaction.wallet.user.username }} - {{ transaction.transaction_type }}: ${{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Deposited: ${{ total_deposited }}</h3>
+    <h3>Total Withdrawn: ${{ total_withdrawn }}</h3>
+</body>
+</html>

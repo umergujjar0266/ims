@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f0f0; /* Added a light background color */
+        }
+          #logout{
+              text-decoration: none;
+              color: white;
+              background-color: transparent;
+              border: solid white 1px;
+              padding: 10px 15px;
+              border-radius: 15px;
+              font-size: 20px;
+              justify-self: right;
+              align-items: right;
+          }
+          #logout:hover{
+            background-color: white;
+            color: #227791;
+            transition-duration: 8ms;
+            box-shadow: white 0px 0px 15px;
+          }
+      .nav a{
+        font-size: 18px;
+          text-decoration: none;
+          float: inline-start;
+          margin: 20px;
+          padding: 10px 15px;
+          color:white;
+      }
+        .profile-container {
+            max-width: 600px;
+            margin:40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0f4c5d;
+            text-align: center;
+        }
+        .nav{
+            background-color: #227791;
+            height: max-content;
+            width: 100%;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            flex-grow: 1;
+            flex-shrink: 1;
+            justify-content: center;
+        }
+        .profile-data {
+            padding: 20px;
+        }
+        .profile-data p {
+            margin: 10px 0;
+        }
+        .profile-data b {
+            color: #0f4c5d;
+        }
+        .edit-profile-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .edit-profile-link a {
+            color: #0f4c5d;
+            text-decoration: none;
+        }
+        .edit-profile-link a:hover {
+            text-decoration: underline;
+        }
+        
+    .copy-button {
+        padding: 0px 19px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: transparent;
+        color: #227791;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+
+    .copy-button:hover {
+        color: #0f4c5d;
+    }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'plan' %}">Plan</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'alert_list' %}">Alerts</a>
+        <a href="{% url 'user_contact' %}">Contact</a>
+        <a id="logout" href="{% url 'user_logout' %}">Logout</a>
+    </div>
+
+    <div class="profile-container">
+        <h1>Your Profile Credentials</h1>
+        <div class="profile-data">
+            <p>Welcome, <b>{{ user.username }}</b></p>
+            <p>First Name: <b>{{ user.first_name }}</b></p>
+            <p>Last Name: <b>{{ user.last_name }}</b></p>
+            <p>Email: <b>{{ user.email }}</b></p>
+            <p>Contact no: <b>{{ user.phone_number }}</b></p>
+            <p>Your Referral ID: <b id="textToCopy">{{ user.user_referral_id }}</b><button class="copy-button" onclick="copyText()"><i class="fa-regular fa-copy"></i></button></p>
+            <p>Your Joined Referral ID: <b>{{ user.joined_referral_id }}</b></p>
+        </div>
+        <div class="edit-profile-link">
+            <p>Want to change your profile? <a href="{% url 'profile_edit' %}">Edit Profile</a></p>
+        </div>
+    </div>
+    
+    <script>
+        function copyText() {
+            // Get the text to copy
+            var textToCopy = document.getElementById("textToCopy").innerText;
+            
+            // Create a temporary input element
+            var tempInput = document.createElement("input");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+    
+            // Select the text in the input element
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // For mobile devices
+    
+            // Copy the text to the clipboard
+            document.execCommand("copy");
+    
+            // Remove the temporary input element
+            document.body.removeChild(tempInput);
+    
+            // Alert the user that the text has been copied
+            alert("Copied your Referral ID: " + textToCopy);
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/f2a11d7af5.js" crossorigin="anonymous"></script>
+    
+</body>
+</html>

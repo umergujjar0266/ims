@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+  <style>
+  body{
+    text-align: center;
+  }
+  li{
+    text-align:left;
+    color:#0f4c5d;
+  }
+  form{
+    padding: 20px 25px;
+    background-color:white;
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+    text-align: center;
+    width: max-content;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 1px gray;
+  }
+  label{
+    margin: 10px 0px;
+    color:#227791;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  p{
+    margin-top: 10px;
+  }
+  .helptext{
+    display: none;
+  }
+  input,#id_plan{
+    padding: 10px 15px;
+    color: #227791;
+    border: #227791 solid 1px;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  input{
+    width: 91% !important;
+  }
+  button{
+    background-color: #0f4c5d;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: none;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  #id_password{
+    display: none;
+  }
+  h1{
+    color: #227791;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f0f0f0; /* Added a light background color */
+}
+label:last-child {
+  display:none;
+}
+</style>
+    <h1>Manage Profile</h1>
+
+    <!-- Form to change personal information -->
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <button type="submit" name="change_personal_info">Edit Your Personal Information</button>
+    </form>
+
+    <!-- Form to change password -->
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit" name="change_password">Change Password</button>
+    </form>
+
+</body>
+</html>

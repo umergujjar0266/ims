@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alerts</title>
+</head>
+<body>
+    <style>
+        b{
+          color: #227791;
+        }
+          #logout{
+              text-decoration: none;
+              color: white;
+              background-color: transparent;
+              border: solid white 1px;
+              padding: 10px 15px;
+              border-radius: 15px;
+              font-size: 20px;
+              justify-self: right;
+              align-items: right;
+          }
+          #logout:hover{
+            background-color: white;
+            color: #227791;
+            transition-duration: 8ms;
+            box-shadow: white 0px 0px 15px;
+          }
+      .nav a{
+        font-size: 18px;
+          text-decoration: none;
+          float: inline-start;
+          margin: 20px;
+          padding: 10px 15px;
+          color:white;
+      }
+      h2{
+        color: #0f4c5d;
+      }
+    
+        #th{
+            background-color:#0f4c5d;
+            color: white;
+            font-weight: 300;
+        }
+    
+        table{
+            box-shadow:gray 2px 2px 15px;
+            padding:10px;
+            text-align: left;
+            width: 100%;
+            background-color:white;
+            border-spacing:0px;
+        }
+        
+        tr:nth-child(odd){
+            background-color: rgb(221, 218, 218);
+        }
+        th,td{
+            padding: 15px;
+        }
+        tr:hover{
+            box-shadow: gray 0px 0px 5px;
+        }
+        td:nth-child(1){
+            max-width: 60%;
+        }
+        .nav{
+            background-color: #227791;
+            height: max-content;
+            width: 100%;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            flex-grow: 1;
+            flex-shrink: 1;
+            justify-content: center;
+        }
+            #submit{
+              text-align: center;
+              background-color: transparent;
+              color: #0059ff;
+              border: #0059ff solid 1px;
+              border-radius:10px;
+              padding:10px 15px;
+              font-size: 18px;
+              font-weight: 900;
+              font-family: 'Times New Roman', Times, serif;
+            }
+            body {
+                margin: 0;
+                font-family: 'Times New Roman', Times, serif;
+                background-color: #f0f0f0; /* Added a light background color */
+            }
+    </style>
+    <div class="nav">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'plan' %}">Plan</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'alert_list' %}">Alerts</a>
+            <a href="{% url 'user_contact' %}">Contact</a>
+            <a id="logout" href="{% url 'user_logout' %}">Logout</a>
+    </div>
+    <br><br>
+    
+    {% if alerts %}
+    <table>
+           <tr id="th">
+               <td>Private Alert Messages</td>
+               <td>Date and time</td>
+           </tr>
+           {% for alert in alerts|dictsortreversed:"timestamp" %}
+                   <tr>
+                       <td>{{ alert.message }}</td>
+                       <td>{{ alert.timestamp }}</td>
+                   </tr>
+           {% endfor %}
+       </table>
+       {%endif%}
+           {% if overall_alerts %}
+       <table>
+               <tr id="th">
+                   <td>Overall Alert Messages</td>
+                   <td>Date and time</td>
+               </tr>
+               {% for overall_alert in overall_alerts|dictsortreversed:"timestamp" %}
+                   <tr>
+                       <td>{{ overall_alert.message }}</td>
+                       <td>{{ overall_alert.timestamp }}</td>
+                   </tr>
+               {% endfor %}
+       </table>
+           {% endif %}
+
+</body>
+</html>`

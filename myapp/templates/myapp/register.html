@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+<body>
+<style>
+  
+  a{
+    color:#0f4c5d;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f0f0f0; /* Added a light background color */
+    height: 100vh;
+    background-attachment: fixed;
+            display: grid;
+            place-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image:url('https://images.stockcake.com/public/9/a/6/9a6cbea7-7a8c-485d-b9a5-285bb589b6cf/mountainous-solitary-adventure-stockcake.jpg');
+}
+  form{
+    padding: 20px 25px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.788);
+    border:solid white 1px;
+    width: max-content;
+    margin:40px auto;
+    border-radius: 20px;
+  }
+  label{
+    margin: 10px 0px;
+    color:#227791;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  p{
+    margin-top: 10px;
+  }
+  .helptext{
+    display: none;
+  }
+  h1{
+    font-family:sans-serif;
+    color:#227791;
+    text-align:left;
+  }
+  input,#id_plan{
+    padding: 10px 15px;
+    color: #227791;
+    border: #227791 solid 1px;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  input{
+    width: 91% !important;
+  }
+  button{
+    background-color: #0f4c5d;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: none;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+</style>
+
+{% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+{% endif %}
+    <form method="post">
+        <h1>Sign in</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign in</button>
+        <p>already have an account? <a href="{% url 'user_login' %}"> Log in</a></p>
+    </form>
+</body>
+</html>
+ 
